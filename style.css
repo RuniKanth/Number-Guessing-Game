@@ -123,3 +123,7 @@ h1 {
   font-family: fantasy;
   /* color: red; */
 }
+
+.player-name {
+  display: block;
+}
