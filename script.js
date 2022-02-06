@@ -3,8 +3,11 @@
 //Set the max score for the game
 let score = 20;
 
-//Generate random number between 0 and 20 when page loads
-const number = Math.trunc(Math.random() * 20) + 1;
+// //Generate random number between 0 and 20 when page loads
+let number = Math.trunc(Math.random() * 20) + 1;
+
+//Just call reset game
+//ResetGame();
 
 //document.querySelector('.number').textContent = number; // will be removed
 
@@ -25,6 +28,9 @@ const GuessNumber = guess => {
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
     document.querySelector('.number').textContent = number;
+
+    //Once you win disable to check button
+    document.querySelector('.check').disabled = true;
   }
   //When guess is either too low or too high
   else if (guess < number) {
@@ -63,3 +69,34 @@ document.querySelector('.check').addEventListener('click', () => {
   //pass it into the eval function
   GuessNumber(guess);
 });
+
+//implementing click event for the Play again button
+document.querySelector('.again').addEventListener('click', () => {
+  //Reset everthing. Call the ResetGame function
+  ResetGame();
+});
+
+const ResetGame = () => {
+  //1. Background color
+  document.querySelector('body').style.backgroundColor = '#222';
+
+  //2. Enable check button
+  document.querySelector('.check').disabled = false;
+
+  //3. Reset overall game score
+  score = 20;
+  document.querySelector('.score').textContent = score;
+
+  //4. Secret number
+  document.querySelector('.number').style.width = '15rem';
+  document.querySelector('.number').textContent = '?';
+
+  //Regenerate random number
+  number = Math.trunc(Math.random() * 20) + 1;
+
+  //clear the input box
+  document.querySelector('.guess').value = '';
+
+  //Reset the message
+  document.querySelector('.message').textContent = 'Start guessing...';
+};
