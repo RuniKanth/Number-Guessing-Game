@@ -3,6 +3,9 @@
 //Set the max score for the game
 let score = 20;
 
+//save high score in a variable
+let highscore = 0;
+
 // //Generate random number between 0 and 20 when page loads
 let number = Math.trunc(Math.random() * 20) + 1;
 
@@ -29,6 +32,11 @@ const GuessNumber = guess => {
     document.querySelector('.number').style.width = '30rem';
     document.querySelector('.number').textContent = number;
 
+    //check if score is greater than current highscore
+    if (score > highscore) {
+      highscore = score;
+      document.querySelector('.highscore').textContent = highscore;
+    }
     //Once you win disable to check button
     document.querySelector('.check').disabled = true;
   }
@@ -63,6 +71,8 @@ const GuessNumber = guess => {
 //Listen to the event on the check button by selecting it
 //call back function called when button is clicked
 document.querySelector('.check').addEventListener('click', () => {
+  //Check if the button is disabled. this happens when game has been played once
+
   //First get the value from the input ox
   const guess = Number(document.querySelector('.guess').value);
 
