@@ -41,27 +41,16 @@ const GuessNumber = guess => {
     document.querySelector('.check').disabled = true;
   }
   //When guess is either too low or too high
-  else if (guess < number) {
+  else if (guess !== number) {
     if (score > 1) {
       score--;
       document.querySelector('.message').textContent =
-        '🔻🔻Your guess is too low! \n Score will decrease by 1';
+        guess < number
+          ? '🔻🔻Your guess is too low! \n Score will decrease by 1'
+          : '🔺🔺Your guess is too high! \n Score will decrease by 1';
 
       document.querySelector('.score').textContent = score;
     } else {
-      document.querySelector('.message').textContent = '👎👎You lost the game!';
-      document.querySelector('.score').textContent = 0;
-    }
-  } else if (guess > number) {
-    // only play if score is above one
-    if (score > 1) {
-      score--;
-      document.querySelector('.message').textContent =
-        '🔺🔺Your guess is too high! \n Score will decrease by 1';
-      document.querySelector('.score').textContent = score;
-    }
-    // player lost the game if score is below zero
-    else {
       document.querySelector('.message').textContent = '👎👎You lost the game!';
       document.querySelector('.score').textContent = 0;
     }
@@ -73,7 +62,7 @@ const GuessNumber = guess => {
 document.querySelector('.check').addEventListener('click', () => {
   //Check if the button is disabled. this happens when game has been played once
 
-  //First get the value from the input ox
+  //First get the value from the input box
   const guess = Number(document.querySelector('.guess').value);
 
   //pass it into the eval function
