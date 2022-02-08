@@ -12,19 +12,20 @@ let number = Math.trunc(Math.random() * 20) + 1;
 //Just call reset game
 //ResetGame();
 
-//document.querySelector('.number').textContent = number; // will be removed
+//function to display the various messages
+const displayMessage = msg => {
+  document.querySelector('.message').textContent = msg;
+};
 
 //Function to evaluate the number entered by the user
 const GuessNumber = guess => {
   //When there is no input
   if (!guess) {
-    document.querySelector('.message').textContent =
-      '🚫🚫Please input a number';
+    displayMessage('🚫🚫Please input a number');
   }
   //When player wins
   else if (guess === number) {
-    document.querySelector('.message').textContent =
-      '✅✅You guessed correctly!';
+    displayMessage('✅✅You guessed correctly!');
 
     //also change the background to green by manupulating the css for the body element
     //in JS two word properties like background-color transition to camelCase
@@ -51,7 +52,7 @@ const GuessNumber = guess => {
 
       document.querySelector('.score').textContent = score;
     } else {
-      document.querySelector('.message').textContent = '👎👎You lost the game!';
+      displayMessage('👎👎You lost the game!');
       document.querySelector('.score').textContent = 0;
     }
   }
