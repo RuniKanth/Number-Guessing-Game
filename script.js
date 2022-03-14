@@ -1,5 +1,18 @@
 'use strict';
 
+//Get the players name
+var playerName = prompt(`Please enter your Name`);
+
+//Make it so that player has to enter name
+if (playerName === '');
+{
+  //alert(`You must enter a Name!`);
+  while (playerName === '') {
+    playerName = prompt(`Please enter your Name`);
+  }
+}
+//What about thje cancel button in the prompt dialog
+
 //Set the max score for the game
 let score = 20;
 
@@ -21,13 +34,13 @@ const displayMessage = msg => {
 const GuessNumber = guess => {
   //When there is no input
   if (!guess) {
-    displayMessage('🚫🚫Please input a number');
+    displayMessage(`🚫🚫 ${playerName} Please input a number`);
   }
   //When player wins
   else if (guess === number) {
-    displayMessage('✅✅You guessed correctly!');
+    displayMessage(`✅✅${playerName}, You guessed correctly!`);
 
-    //also change the background to green by manupulating the css for the body element
+    //also change the background to  green by manupulating the css for the body element
     //in JS two word properties like background-color transition to camelCase
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '30rem';
@@ -40,20 +53,26 @@ const GuessNumber = guess => {
     }
     //Once you win disable to check button
     document.querySelector('.check').disabled = true;
+    document.querySelector('.guess').disabled = true;
   }
   //When guess is either too low or too high
   else if (guess !== number) {
     if (score > 1) {
       score--;
-      document.querySelector('.message').textContent =
+      displayMessage(
         guess < number
           ? '🔻🔻Your guess is too low! \n Score will decrease by 1'
-          : '🔺🔺Your guess is too high! \n Score will decrease by 1';
+          : '🔺🔺Your guess is too high! \n Score will decrease by 1'
+      );
 
       document.querySelector('.score').textContent = score;
     } else {
-      displayMessage('👎👎You lost the game!');
+      displayMessage(`👎👎You lost the game! ${playerName}, You are a Loser!!`);
       document.querySelector('.score').textContent = 0;
+
+      //disable both the check button and the guess number text box
+      document.querySelector('.check').disabled = true;
+      document.querySelector('.guess').disabled = true;
     }
   }
 };
@@ -68,6 +87,16 @@ document.querySelector('.check').addEventListener('click', () => {
 
   //pass it into the eval function
   GuessNumber(guess);
+});
+
+document.querySelector('.guess').addEventListener('keypress', e => {
+  if (e.key === 'Enter') {
+    //First get the value from the input box
+    const guess = Number(document.querySelector('.guess').value);
+
+    //pass it into the eval function
+    GuessNumber(guess);
+  }
 });
 
 //implementing click event for the Play again button
@@ -89,7 +118,7 @@ const ResetGame = () => {
 
   //4. Secret number
   document.querySelector('.number').style.width = '15rem';
-  document.querySelector('.number').textContent = '?';
+  displayMessage('?');
 
   //Regenerate random number
   number = Math.trunc(Math.random() * 20) + 1;
@@ -98,5 +127,8 @@ const ResetGame = () => {
   document.querySelector('.guess').value = '';
 
   //Reset the message
-  document.querySelector('.message').textContent = 'Start guessing...';
+  displayMessage('Start guessing...');
+
+  //Enable the input box
+  document.querySelector('.guess').disabled = false;
 };
