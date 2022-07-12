@@ -1,16 +1,22 @@
 'use strict';
 
+//document.location.reload();
+
 //Get the players name
 var playerName = prompt(`Please enter your Name`);
 
 //Make it so that player has to enter name
-if (playerName === '');
-{
+if (playerName === '') {
   //alert(`You must enter a Name!`);
   while (playerName === '') {
     playerName = prompt(`Please enter your Name`);
   }
+} else {
+  document.querySelector(
+    '.message'
+  ).textContent = `Hey ${playerName}, Start Guessing!`;
 }
+
 //What about thje cancel button in the prompt dialog
 
 //Set the max score for the game
