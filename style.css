@@ -25,8 +25,16 @@ header {
   border-bottom: 7px solid #eee;
 }
 
-main {
+/* main {
   height: 65vh;
+  color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+} */
+
+main {
+  height: 60vh;
   color: #eee;
   display: flex;
   align-items: center;
@@ -120,8 +128,10 @@ h1 {
 
 .my-copyright {
   font-size: 14px;
-  font-family: fantasy;
-  /* color: red; */
+  font-family: 'Press Start 2P', sans-serif;
+  padding-bottom: 50px;
+  /* font-family: fantasy; */
+  /* color: blue; */
 }
 
 .player-name {
